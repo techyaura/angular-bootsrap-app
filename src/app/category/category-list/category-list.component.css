@@ -1,0 +1,51 @@
+.actions-option {
+  padding: 15px;
+}
+.table tr td.actions .icon {
+  color: black;
+}
+.disabled {
+  pointer-events: none;
+  color: #ccc !important;
+  cursor: not-allowed;
+  text-decoration: underline;
+}
+.highlight-parent {
+  background-color: #c6ffb3 !important;
+}
+.uppercase-parent {
+  text-transform: uppercase;
+}
+table {
+  width: 100%;
+}
+.actions {
+  float: right;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+.transaction {
+  padding: 10px;
+}
+.make-underline {
+  text-decoration: underline;
+}
+
+.padding-smooth {
+  margin-top: 8px !important;
+}
+#sequence {
+  width: 90%;
+  text-align: center;
+}
+.sequece-th {
+  width: 30px !important;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}

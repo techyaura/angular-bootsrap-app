@@ -1,0 +1,23 @@
+<!-- <h1 mat-dialog-title>Hi {{data?.name}}</h1> -->
+<div mat-dialog-content>
+  <p>Are you sure you want to remove the transaction?</p>
+  <!-- <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field> -->
+</div>
+<div mat-dialog-actions>
+  <button (click)="onNoClick()" _ngcontent-c21="" color="primary" mat-raised-button="" class="mat-raised-button mat-primary">
+    <span class="mat-button-wrapper">No Thanks</span>
+    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+    <div class="mat-button-focus-overlay"></div>
+  </button>
+  <button (click)="remove()" _ngcontent-c21="" color="warn" mat-raised-button="" class="mat-raised-button mat-warn" style="float: right;">
+    <span class="mat-button-wrapper">Ok</span>
+    <div class="mat-button-ripple mat-ripple" matripple="">
+      <div class="mat-ripple-element" style="left: -5.7068px; top: -26.5818px; height: 99.4136px; width: 99.4136px; transition-duration: 450ms; transform: scale(1);"></div>
+    </div>
+    <div class="mat-button-focus-overlay"></div>
+  </button>
+  <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button cdkFocusInitial (click)="remove()">Ok</button> -->
+</div>

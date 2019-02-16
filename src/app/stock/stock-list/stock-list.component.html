@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="row-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-subtitle">
+          </span>
+        </div>
+        <!-- <div class="panel-body">
+          <form novalidate [formGroup]="formObj" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Category</label>
+              <div class="col-sm-6">
+                <select class="form-control" formControlName="category">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let category of categoryArrayList" [ngValue]="category.slug">{{category.name}}</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!--Responsive table-->
+    <div class="col-sm-12">
+      <div class="panel panel-default panel-table">
+        <div class="panel-heading">Stock List
+          <div class="tools">
+            <a title="Add Income" class="icon" routerLink="/stock/add">
+              <span class="mdi mdi-plus"></span>
+            </a>
+          </div>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th style="width:5%;">S. No</th>
+                <th style="width:17%;" class="hide-cols">Mode</th>
+                <!-- <th style="width:10%;">Name</th> -->
+  
+                <th style="width:10%;">Stock Id</th>
+  
+                <!-- <th style="width:10%;">Created</th> -->
+                <!-- <th style="width:10%;"> Mode</th> -->
+                <th style="width:17%;" class="hide-cols">Quantity</th>
+                <th style="width:17%;" class="hide-cols">Price/stock</th>
+                <th style="width:17%;" class="hide-cols">Total Cost</th>
+                <th style="width:17%;" class="hide-cols">Transaction Date</th>
+                <!-- <th style="width:10%;">Created Date</th> -->
+                <th style="width:10%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of dataArrayList; let i = index">
+                <td class="cell-detail">
+                  <span>{{i+1}}</span>
+                  <span class="cell-detail-description"></span>
+                </td>
+                <td class="cell-detail hide-cols">
+                    <a href="#" class="btn" [ngClass] = "{'btn-success' : data?.s_type === 'Buy','btn-danger' : data?.s_type === 'Sell'  }">{{data?.s_type}}</a>
+                </td>
+                <td class="cell-detail">
+                  <span>{{data?.s_Id}}</span>
+                </td>
+                <td class="cell-detail">
+                  <span>{{data?.quantity}}</span>
+                </td>
+                <td class="cell-detail">
+                  <span>{{data?.s_price | currency:'INR'}}</span>
+                </td>
+                <td class="cell-detail">
+                    <span>{{data?.s_price * data?.quantity | currency:'INR'}}</span>
+                  </td>
+                <!-- <td class="cell-detail">
+                  <span>{{data?.createdAt | date: 'medium'}}</span>
+                </td> -->
+                <!-- <td class="cell-detail">
+                  <span>{{data?.mode}}</span>
+                </td> -->
+                <!-- <td class="cell-detail hide-cols">
+                  <span>{{data?.name}}</span>
+                </td> -->
+                <td class="cell-detail hide-cols">
+                  <span>{{data?.transactionDate | date: 'medium'}}</span>
+                </td>
+                <td class="actions">
+                  <span class="actions">
+                    <a routerLink="/stock/update/{{data?._id}}" class="icon">
+                      <i class="mdi mdi-edit"></i>
+                    </a>
+                  </span>
+                  <span>
+                      <a href="javascript:void(0)" class="icon" (click)="openDialog(data._id)">
+                          <i class="mdi mdi-delete"></i>
+                        </a>
+                  </span>
+                </td>
+                <!-- <td class="text-right">
+                  <div class="btn-group btn-hspace">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
+                    <ul role="menu" class="dropdown-menu pull-right">
+                      <li><a routerLink="/expense/update/{{data?._id}}">Edit</a></li>
+                      <li><a style = "cursor: pointer;" (click)="remove(data._id)">Delete</a></li>
+                      <li><a routerLink="/category/add">Add SubCategory</a></li>
+                    </ul>
+                  </div>
+                </td> -->
+              </tr>
+              <tr *ngIf="!dataArrayList.length && isApiLoaded">
+                <td class="cell-detail" colspan="7" style="text-align: center">No data available.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

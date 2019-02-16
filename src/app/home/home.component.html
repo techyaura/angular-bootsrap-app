@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body xs-pb-10">
+                <form novalidate [formGroup]="formObj" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-3 pull-left">
+                            <select class="form-control" formControlName="year" (change)="changFilter($event, 'year')">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let year of yearArrayList" [value]="year.value" [disabled]="year.value >__currentYear">{{year.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4 pull-left">
+                            <div class="input-group input-search">
+                                <select class="form-control" formControlName="month"  (change)="changFilter($event, 'month')">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let month of monthArrayList" [value]="month.value">{{month.name}}</option>
+                                </select>
+                                <!-- <input type="text" placeholder="Search" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default">
+                                        <i class="icon mdi mdi-search"></i>
+                                    </button>
+                                </span> -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row" *ngIf="isLoaded">
+    <div class="col-xs-12 col-md-6 col-lg-3" *ngFor="let data of aggregateData?.month_byMode">
+        <div class="widget widget-tile">
+            <div id="spark1" class="chart sparkline">
+                <canvas width="85" height="35" style="display: inline-block; width: 85px; height: 35px; vertical-align: top;"></canvas>
+            </div>
+            <div class="data-info">
+                <div class="desc">{{data._id}}</div>
+                <div class="value">
+                    <span data-toggle="counter" data-end="113" class="number">{{data.totalAmount | currency:'INR'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="row">
+
+    <!-- Expenses per category per month: Pie chart -->
+    <div class="col-md-12" *ngIf="isExpensePerCategoryInMonthLoaded">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-divider">
+                <span class="panel-subtitle">Expenses per category in {{currentMonthName}} month.</span>
+            </div>
+            <div class="panel-body">
+                <canvas baseChart [data]="chart_month_byCategory2?.barChartData" [labels]="chart_month_byCategory2?.barChartLabels"
+                    [chartType]="chart_month_byCategory2?.barChartType" (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expenses per mode per month: Pie chart -->
+    <div class="col-md-6" *ngIf="isExpensePerModeInMonthLoaded">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-divider">
+                <span class="panel-subtitle">Overall Expenses & Income in {{currentMonthName}} month</span>
+            </div>
+            <div class="panel-body">
+                <canvas baseChart [data]="chart_month_byMode?.barChartData" [labels]="chart_month_byMode?.barChartLabels"
+                    [chartType]="chart_month_byMode?.barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expenses per category per month: Bar chart -->
+    <div class="col-md-6" *ngIf="isExpensePerCategoryInMonthLoaded">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-divider">
+                <span class="panel-subtitle">Expenses per category in {{currentMonthName}} month.</span>
+            </div>
+            <div class="panel-body">
+                <iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                <canvas baseChart #chart [datasets]="chart_month_byCategory1?.barChartData" [labels]="chart_month_byCategory1?.barChartLabels"
+                    [options]="chart_month_byCategory1?.barChartOptions" [legend]="chart_month_byCategory1?.barChartLegend"
+                    [chartType]="chart_month_byCategory1?.barChartType" (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expenses per category per month: Bar chart -->
+    <!-- <div class="col-md-12" *ngIf="isExpensePerDayInMonthLoaded && chart_month_byDay?.barChartLabels.length">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-divider">
+                <span class="panel-subtitle">Expenses per day in {{currentMonthName}} month.</span>
+            </div>
+            <div class="panel-body">
+                <canvas baseChart [datasets]="chart_month_byDay?.barChartData" [labels]="chart_month_byDay?.barChartLabels"
+                    [options]="chart_month_byDay?.barChartOptions" [legend]="chart_month_byDay?.barChartLegend"
+                    [chartType]="chart_month_byDay?.barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div> -->
+
+</div>
+
+<!-- Expenses per category & month per year: Bar chart -->
+<div class="row" *ngIf="isExpensePerMonthInYear && (chart_year_byMonth2?.barChartLabels.length || chart_year_byMonth?.labels.length)">
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-divider">
+                <span class="panel-subtitle">Expenses per month in {{currentYear}} year</span>
+            </div>
+            <div class="panel-body">
+                <canvas baseChart [datasets]="chart_year_byMonth2?.barChartData" [labels]="chart_year_byMonth2?.barChartLabels"
+                    [options]="chart_year_byMonth2?.barChartOptions" [legend]="chart_year_byMonth2?.barChartLegend"
+                    [chartType]="chart_year_byMonth2?.barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-divider">
+                <span class="panel-subtitle">Expenses & Income per month  {{currentYear}} year</span>
+            </div>
+            <div class="panel-body">
+                <canvas baseChart width="400" height="200" [datasets]="chart_year_byMonth.lineChartData" [labels]="chart_year_byMonth.labels"
+                    [options]="chart_year_byMonth.lineChartOptions" [colors]="chart_year_byMonth.lineChartColors"
+                    [legend]="chart_year_byMonth.lineChartLegend" [chartType]="chart_year_byMonth.lineChartType"
+                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Total transactions per category per year -->
+<div class="row" *ngIf="isExpensePerCategoryInYearLoaded && chart_year_byCategory.length">
+    <div class="col-sm-12">
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">Total transactions per category  {{currentYear}} year </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-3" *ngFor="let data of chart_year_byCategory">
+        <a routerLink="/transaction/timeline" [queryParams]="{ctId: data.slug}">
+            <div class="widget widget-tile">
+                <div class="data-info">
+                    <div class="desc">{{data._id}}</div>
+                    <div class="value">
+                        <span data-toggle="counter" data-end="113" class="number">{{((data.totalAmount) || data.credit) | currency:'INR'}}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

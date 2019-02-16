@@ -1,0 +1,16 @@
+.noRecord {
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+}
+.timeline-month-span {
+  background-color: #ccc;
+  padding: 10px;
+}
+
+.timeline-actions{
+  position: absolute;
+  right: 10px;
+  top: 40px;
+}

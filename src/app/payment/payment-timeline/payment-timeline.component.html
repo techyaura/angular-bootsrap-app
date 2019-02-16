@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="row-md-12">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <span class="panel-subtitle">
+              </span>
+          </div>
+          <div class="panel-body">
+              <form novalidate [formGroup]="formObj" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+
+                  <div class="form-group">
+                      <label class="col-sm-3 control-label">Category</label>
+                      <div class="col-sm-6">
+                          <select class="form-control" formControlName="category">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let category of categoryArrayList" [value]="category.slug">{{category | categoryAncestor}}</option>
+                          </select>
+                      </div>
+                  </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ul class="timeline timeline-variant">
+      <ng-container *ngFor="let data of dataArrayList">
+        <li class="timeline-month">
+          <span class="timeline-month-span">{{data._id.month | getMonthName}}, {{data?._id.year}}</span>
+        </li>
+        <li class="timeline-item right" *ngFor="let payment of data.payments | sortByDate: '-paymentDate'; let odd=odd; let even=even "
+          [ngClass]="{ right: odd, left:even}">
+          <div class="timeline-content timeline-type comment">
+            <div class="timeline-icon">
+              <i class="icon mdi mdi-image"></i>
+            </div>
+            <div class="timeline-avatar">
+              <img src="assets/img/avatar.png" alt="Avatar" class="circle">
+            </div>
+            <div class="timeline-header">
+                <span class="timeline-time">{{payment?.paymentDate | date: 'medium'}}</span>
+                <span class="timeline-actions">
+                    <a routerLink="/transaction/update/{{payment?._id}}" class="icon">
+                      <i class="mdi mdi-edit"></i>
+                    </a>
+                  </span>
+                <br>
+              <!-- <span class="timeline-autor">Mode: </span>
+              <p class="timeline-activity">
+                <a routerLink="/payment/list"> {{payment?.mode}}</a>
+              </p> -->
+              <p class="timeline-activity">
+                <button class="btn btn-space" [ngClass]="{'btn-success': (payment?.mode === 'INCOME'), 'btn-danger': (payment?.mode !== 'INCOME')}">
+                  <span>{{payment?.mode === 'INCOME'? 'CREDIT': 'DEBIT'}}</span>
+                </button>
+                {{payment?.amount | currency: 'INR'}}
+              </p>
+              <br>
+              <!-- <span class="timeline-autor">Amount </span>
+              <p class="timeline-activity">
+                <a routerLink="/payment/list"> {{payment?.amount | currency: 'INR'}}</a>
+              </p>
+              <br> -->
+              <span class="timeline-autor">Category: </span>
+              <p class="timeline-activity">
+                <a routerLink="/payment/list"> {{payment?.category[0]}}</a>
+              </p>
+              <br>
+            </div>
+            <div class="timeline-summary">
+              <blockquote class="timeline-blockquote">
+                  <p>{{payment?.name}} </p>
+              </blockquote>
+
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+    <div class="noRecord" *ngIf="isDataLoaded && !dataArrayList.length">No Data Available</div>
+  </div>
+</div>

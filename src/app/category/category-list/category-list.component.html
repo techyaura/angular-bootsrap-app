@@ -1,0 +1,100 @@
+<div class="row">
+  <!-- Responsive table -->
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-table">
+      <div class="panel-heading">
+        Category List (Highlighted Row are Parent categories)
+        <div class="tools">
+          <a title="Add Income" class="icon" routerLink="/category/add">
+            <span class="mdi mdi-plus"></span>
+          </a>
+        </div>
+      </div>
+      <div class="panel-body">
+        <mat-form-field class="col-sm-12">
+          <input
+            matInput
+            (keyup)="applyFilter($event.target.value)"
+            placeholder="Filter"
+          />
+        </mat-form-field>
+        <table
+          class="zero_config table table-striped table-bordered"
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ 'uppercase-parent': !element.ancestors.length }"
+            >
+              <span>{{ element?.name }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="parentCategory">
+            <th mat-header-cell *matHeaderCellDef>Parent Category</th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                *ngIf="element.ancestors.length"
+                [ngClass]="{ 'uppercase-parent': element.ancestors.length }"
+                >{{ element | ancestors: "TRUE" }}</span
+              >
+              <span *ngIf="!element.ancestors.length">-</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <span class="actions">
+                <a
+                  [class.disabled]="element.isSystemDefined"
+                  routerLink="/category/update/{{element?._id}}"
+                  class="icon actions-option"
+                  title="{{element.isSystemDefined ? '' : 'Edit'}}"
+                >
+                  <i class="mdi mdi-edit"></i>
+                </a>
+              </span>
+              <span class="actions">
+                <a
+                  [class.disabled]="element.isSystemDefined"
+                  href="javascript:void(0)"
+                  class="icon"
+                  (click)="remove(element._id)"
+                  title="{{element.isSystemDefined ? '' : 'Delete'}}"
+                >
+                  <i class="mdi mdi-delete"></i>
+                </a>
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns; let i = index"
+            [ngClass]="{ 'highlight-parent': !row.ancestors.length }"
+          ></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[10, 50, 100, 200, 400, 800]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

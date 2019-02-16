@@ -1,0 +1,11 @@
+.widget.widget-tile .data-info .value {
+    font-size: 10px;
+}
+
+@media (min-width: 320px) and (max-width: 768px) { 
+    /* smartphones, iPhone, portrait 480x320 phones */ 
+    .pull-left{
+        width: 100%;
+        margin-top: 10px;
+    }
+}

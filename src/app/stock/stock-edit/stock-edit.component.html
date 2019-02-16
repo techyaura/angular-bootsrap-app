@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-md-12 text-center">
+      <div class="panel panel-default">
+        <div class="panel-heading panel-heading-divider">Update Stock
+          <span class="panel-subtitle">
+            <!-- These are the basic bootstrap form elements -->
+          </span>
+        </div>
+        <div class="panel-body">
+          <form novalidate (ngSubmit)="update()" [formGroup]="formObj" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <mat-select placeholder="Transaction type*" formControlName="s_type">
+                    <mat-option *ngFor="let type of s_types" [value]=" type.type">{{ type.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <input matInput placeholder="Stocke Id*" [matAutocomplete]="auto" formControlName="s_Id" />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let state of all_Stocks" [value]="state">
+                      <span>{{state}}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <!-- <input matInput placeholder="Input"> -->
+                <!-- <input type="number" class="form-control" placeholder="Amount" formControlName="amount" min="50" max="100000"> -->
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <input matInput type="number" placeholder="Quantity*" formControlName="quantity" min="1" max="100000">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <input matInput type="number" placeholder="Stock price/quantity*" formControlName="s_price" min="1" max="100000">
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" placeholder="Date of Payment*" formControlName="transactionDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+  
+  
+            <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-6">
+                  <mat-form-field>
+                    <input matInput placeholder="Stock details (If any)" formControlName="s_name" />
+                  </mat-form-field>
+                </div>
+              </div>
+  
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary">SAVE</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

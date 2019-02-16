@@ -1,0 +1,123 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <div class="panel panel-default">
+      <div class="panel-heading panel-heading-divider">Add Transaction
+        <span class="panel-subtitle">
+          <!-- These are the basic bootstrap form elements -->
+        </span>
+      </div>
+      <div class="panel-body">
+        <form novalidate (ngSubmit)="add()" [formGroup]="formObj" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <mat-form-field>
+                <mat-select placeholder="Transaction type*" formControlName="mode" ng-change="getCategory(mode)">
+                  <mat-option *ngFor="let mode of paymentModeArray" [value]="mode.value">{{mode.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <mat-form-field>
+                <mat-select placeholder="Category*" formControlName="categoryId">
+                  <mat-option *ngFor="let category of categoryArrayList" [value]="category._id">{{category | categoryAncestor}}</mat-option>
+                  <mat-option value="">--Select--</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <select class="form-control" formControlName="categoryId">
+                <option value="">--Select--</option>
+                <option *ngFor="let category of categoryArrayList" [value]="category._id">{{category.name}}</option>
+              </select> -->
+            </div>
+            <div class="col-sm-1">
+              <!-- <button class="mat-fab mat-accent" type="button" (click)="openDialog()">
+                <span class="mat-button-wrapper">
+                  <mat-icon class="mat-icon material-icons" matTooltip="Add new category" aria-hidden="true">+</mat-icon>
+                </span>
+                <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                <div class="mat-button-focus-overlay"></div>
+              </button> -->
+              <a  mat-mini-fab="" class="mat-mini-fab mat-accent" tabindex="0" aria-disabled="false" (click)="openDialog()">
+                <span class="mat-button-wrapper"> 
+                  <mat-icon class="mat-icon material-icons" matTooltip="Add new category" aria-hidden="true">+</mat-icon>
+                </span>
+                <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                <div class="mat-button-focus-overlay"></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-3">
+              <mat-form-field>
+                <input matInput type="number" placeholder="Amount*" formControlName="amount" min="50" max="100000">
+              </mat-form-field>
+              <!-- <input matInput placeholder="Input"> -->
+              <!-- <input type="number" class="form-control" placeholder="Amount" formControlName="amount" min="50" max="100000"> -->
+            </div>
+            <div class="col-sm-3">
+              <mat-form-field>
+                <mat-select placeholder="Payment mode*" formControlName="cardId">
+                  <mat-option *ngFor="let card of cardArrayList" [value]="card._id">{{card.name}}</mat-option>
+                  <mat-option value="">--Select--</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <!-- 
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Date*</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" placeholder="Name" formControlName="name">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="paymentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Date of Payment*" formControlName="paymentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+
+              <!-- <select class="form-control" formControlName="cardId">
+                <option value="">--Select--</option>
+                <option *ngFor="let card of cardArrayList" [value]="card._id">{{card.name}}</option>
+              </select> -->
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <mat-form-field>
+                <textarea matInput placeholder="Transaction Details (If any)" formControlName="name"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default panel-border-color panel-border-color-primary">
+      <div class="panel-heading panel-heading-divider">Add Card
+        <span class="panel-subtitle">
+          <!-- These are the basic bootstrap form elements -->
+        </span>
+      </div>
+      <div class="panel-body">
+        <form novalidate (ngSubmit)="add()" [formGroup]="formObj" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+          
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Name*</label>
+            <div class="col-sm-6">
+              <mat-form-field>
+                <input matInput autocomplete="off" type="text" placeholder="Name" formControlName="name">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-sm-3 control-label">Account Type</label>
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <mat-select placeholder="Transaction type*" formControlName="type">
+                    <mat-option *ngFor="let type of payTypesArr" [value]="type.slug">{{type.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
