@@ -57,7 +57,7 @@ export class AuthService {
 
   login(postBody: any): Observable<any> {
     return this.http
-      .post(this.remoteUrl + 'tplanner/login', postBody)
+      .post(this.remoteUrl + 'auth/login', postBody)
       .pipe(catchError(this.handleError('login', [])));
   }
 
